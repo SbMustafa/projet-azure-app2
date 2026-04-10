@@ -1,6 +1,5 @@
 name: Deploy PHP App to Azure
 
-# Déclenchement automatique à chaque push sur la branche principale 
 on:
   push:
     branches: [ main ]
@@ -8,22 +7,21 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      # 1. Récupération du code source
-      - name: 'Checkout GitHub Action'
+      - name: 'Checkout code'
         uses: actions/checkout@v4
 
-      # 2. Tests automatisés (Requis par le critère n°4 )
-      - name: 'Run Automated Tests'
+      - name: 'Automated Syntax Test' # Requis par le point 4 du sujet
         run: |
-          echo "Vérification de la syntaxe PHP..."
-          php -l index.php
-          echo "Tests de connectivité théorique... OK"
+          if [ -f index.php ]; then
+            php -l index.php
+          else
+            echo "Erreur : index.php non trouvé à la racine !"
+            exit 1
+          fi
 
-      # 3. Déploiement sur Azure App Service 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'app-projet-amine' # Le nom de ton App Service
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} # Ton secret GitHub
+          app-name: 'app-projet-amine'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
