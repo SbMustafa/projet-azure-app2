@@ -4,16 +4,19 @@ $serverName = "srv-azure-mus.database.windows.net";
 $database = "db-app-prod";
 $username = "user_admin";
 
-echo "<h1>Test de déploiement Azure - Mustapha Amine</h1>";
-
 try {
     $conn = new PDO("sqlsrv:server=$serverName;Database=$database", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    echo "<h2 style='color:green;'>✅ TEST RÉUSSI : Connexion SQL établie !</h2>";
-    echo "<p>La communication entre l'App Service et la base SQL est fluide.</p>";
+    $status = "✅ CONNEXION SQL RÉUSSIE";
 } catch (PDOException $e) {
-    echo "<h2 style='color:red;'>❌ Échec de connexion</h2>";
-    echo "Détails de l'erreur : " . $e->getMessage();
+    $status = "❌ ERREUR SQL : " . $e->getMessage();
 }
 ?>
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Projet Azure - Mustapha Amine</h1>
+    <h2>Statut de la base de données :</h2>
+    <p><?php echo $status; ?></p>
+</body>
+</html>
