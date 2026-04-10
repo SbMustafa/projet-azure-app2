@@ -1,26 +1,18 @@
-name: Deploy PHP App to Azure
-
+name: Deploy App
 on:
   push:
     branches: [ main ]
-
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout code'
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: 'Automated Syntax Test' # Requis par le point 4 du sujet
-        run: |
-          if [ -f index.php ]; then
-            php -l index.php
-          else
-            echo "Erreur : index.php non trouvé à la racine !"
-            exit 1
-          fi
+      - name: Test Syntax # Indispensable pour le point 4 du sujet
+        run: php -l index.php
 
-      - name: 'Deploy to Azure Web App'
+      - name: Deploy
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'app-projet-amine'
