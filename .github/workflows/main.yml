@@ -9,10 +9,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Test Syntax # Indispensable pour le point 4 du sujet
+      - name: PHP Syntax Check # Ce test valide le point 4 du sujet
         run: php -l index.php
 
-      - name: Deploy
+      - name: Deploy to Azure
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'app-projet-amine'
