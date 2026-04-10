@@ -1,8 +1,8 @@
 <?php
 $password = getenv('DB_PASSWORD'); 
-$serverName = "srv-azure-mus.database.windows.net";
-$database = "db-app-prod";
-$username = "user_admin";
+$serverName = "srv-azure-musb.database.windows.net"; 
+$database = "azure-db";
+$username = "user_admin"; 
 
 try {
     $conn = new PDO("sqlsrv:server=$serverName;Database=$database", $username, $password);
@@ -16,7 +16,7 @@ try {
 <html>
 <body>
     <h1>Projet Azure - Mustapha Amine</h1>
-    <h2>Statut de la base de données :</h2>
+    <h2>Statut de la communication :</h2>
     <p><?php echo $status; ?></p>
 </body>
 </html>
